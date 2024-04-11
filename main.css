@@ -1,0 +1,194 @@
+/*******w******** 
+    
+    Name: Faye Vaquilar
+    Date: Feb 20, 2024
+    Description: Web Dev 2 Assignment 3 Blog
+
+****************/
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+body,html{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #2A2B2E;
+    color: white;
+}
+
+#header {
+    background: #442533;
+    background: radial-gradient(at center, #442533, #4E4983);
+    height: 365px;
+    position: relative;
+}
+
+#header h1 {
+    margin: 0;
+    color:  white;
+    font-size: 3.2em;
+    letter-spacing: 0.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+#navbar {
+    background-color: #2A2B2E;
+}
+
+#navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2A2B2E;
+}
+  
+#navbar li {
+    float: right;
+    background-color: #ffffff28;
+    position: relative;
+}
+
+#navbar li:not(:last-child)::after {
+    content:"";
+    background: #ccccccc4;
+    position: absolute;
+    bottom: 25%;
+    top: 25%;
+    width: 1px;
+
+}
+  
+#navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+#navbar  li  a:hover {
+    background-color: #442533;
+}
+
+.indexmain {
+    margin: 0 auto;
+    color: white;
+    max-width: 50%;
+}
+
+.titlelink  {
+    text-decoration: none;
+}
+
+.block {
+    border: thick double #ffffff28;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
+}
+
+main {
+    flex-grow: 1; 
+    padding-top: 20px; 
+    padding-bottom: 60px; 
+    overflow-y: auto; 
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-image: radial-gradient(circle, #272527, #232224, #202021, #1d1d1d, #1a1a1a);
+    padding: 10px 0;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+footer ul li {
+    display: inline;
+    margin-right: 10px; 
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    color: white;
+    background-color: #ffffff28;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #442533;
+}
+
+body a:not(button):not(nav a) {
+    color: white;
+    box-shadow: inset 0 0 0 0 #4E4983;
+    color: #fff;
+    margin: 0 -.25rem;
+    padding: 0 .25rem;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+body a:not(button):not(nav a):hover {
+    box-shadow: inset 500px 0 0 0 #4E4983;
+    color: white;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    margin: 12px 0px;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 50%;
+    margin: 100px auto; /* Center horizontally and adjust vertical margin as needed */
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+    color: #FFF;
+  }
+  
+  
+  
