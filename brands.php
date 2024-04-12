@@ -18,7 +18,7 @@ $statement->execute();
     <title>Sustainable Brands - Conscious Closet</title>
 </head>
 <body>
-    <?php include('header.php') ?>
+    <?php include('header.php') ?> 
     <?php include('nav.php') ?>
 
     <div class="hero-content">

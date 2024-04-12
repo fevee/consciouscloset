@@ -1,9 +1,8 @@
 <footer>
     <ul>
         <small>
-            <li><a href="https://linkedin.com/in/fayevaquilar">Linkedin</a></li>
-            <li><a href="https://github.com/fevee">GitHub</a></li>
+            <li>Developed by <a href="https://linkedin.com/in/fayevaquilar">Faye Vaquilar</a></li>
         </small>
     </ul>
-    <small>Faye Vaquilar © <?=date('Y')?></small>
+    <small>Conscious Closet © <?=date('Y')?></small>
 </footer>
