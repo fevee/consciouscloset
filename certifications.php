@@ -33,11 +33,22 @@ $statement->execute();
                 <p>No certifications listed yet</p>
             </div>
         <?php exit; endif; ?>
-
         <?php while($row = $statement->fetch()): ?>
-            <div class="block">
-                <h3><?= $row['name'] ?></h3>
-                <p><?= $row['description'] ?></p>
+            <div class="cert">
+                <?php if (!empty($row['image_path'])) : ?>
+                    <?php
+                    // Get the image name
+                    $image_name = basename($row['image_path']);
+                    ?>
+                    <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="cert-image">
+                <?php endif; ?>
+                <div class="cert-info">
+                    <h3><?= $row['name'] ?></h3>
+                    <p class="description"><?= strlen($row['description']) > 140 ? substr($row['description'], 0, 140) . '...' : $row['description'] ?><a href="show_cert.php?id=<?=$row['id']?>">Show</a>
+</p>
+                    <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+                    <p><a href="edit_cert.php?id=<?= $row['id'] ?>">Edit</a></p>
+                </div>
             </div>
         <?php endwhile; ?>
     </main>

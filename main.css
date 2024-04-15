@@ -115,7 +115,7 @@ body,html{
     box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
 }
 
-.brand {
+.brand, .cert {
     border: thick double #ffffff28;
     max-width: 450px;
     border-radius: 10px;
@@ -127,18 +127,18 @@ body,html{
     box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
 }
 
-.brand-image {
+.brand-image, .cert-image {
     width: 175px; /* Adjust the size of the brand image square */
     height: 175px; /* Adjust the size of the brand image square */
     object-fit: cover;
     margin-bottom: 10px;
 }
 
-.brand-info {
+.brand-info, .cert-info {
     max-width: 400px;
 }
 
-.brand-description {
+.brand-description, .cert-info {
     margin-bottom: 10px;
 }
 
