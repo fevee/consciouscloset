@@ -41,13 +41,14 @@ if ($image_upload_detected) {
     }
 }
 
-if($_POST && !empty($_POST['title']) && !empty($_POST['content'])) {
+if($_POST && !empty($_POST['brand_name']) && !empty($_POST['brand_description']) && !empty($_POST['website'])) {
 
-    $query = "INSERT INTO blog(title, content, image_path) VALUES (:title, :content, :image_path)";
+    $query = "INSERT INTO brands(brand_name, brand_description, website, image_path ) VALUES (:brand_name, :brand_description, :website, :image_path)";
     $statement = $db->prepare($query);
 
-    $title = filter_input(INPUT_POST, 'title');
-    $content = filter_input(INPUT_POST, 'content');
+    $brand_name = filter_input(INPUT_POST, 'brand_name');
+    $brand_description = filter_input(INPUT_POST, 'brand_description');
+    $website = filter_input(INPUT_POST, 'website');
 
     // Check if $new_image_path is null and handle accordingly
     if ($new_image_path !== null) {
@@ -56,15 +57,16 @@ if($_POST && !empty($_POST['title']) && !empty($_POST['content'])) {
         $image_path = null; // Set image_path to null if no image is uploaded
     }
 
-    $statement->bindValue(':title', $title);
-    $statement->bindValue(':content', $content);
+    $statement->bindValue(':brand_name', $brand_name);
+    $statement->bindValue(':brand_description', $brand_description);
+    $statement->bindValue(':website', $website);
     $statement->bindValue(':image_path', $image_path, PDO::PARAM_STR); // PDO::PARAM_STR for NULL value
 
     if($statement->execute()) {
-        echo "New post submitted";
+        echo "New brand submitted";
     }
 
-    header("Location: index.php");
+    header("Location: brands.php");
     exit;
 }
 
@@ -77,21 +79,25 @@ if($_POST && !empty($_POST['title']) && !empty($_POST['content'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
-    <title>New Blog Post</title>
+    <title>New Brand</title>
 </head>
 <body>
     <?php include('header.php') ?>
     <?php include('nav.php') ?>
     <main>
-        <form action="post.php" method="POST" enctype="multipart/form-data" class="block"> <!-- Added enctype="multipart/form-data" -->
-            <h2>New Post</h2>
+        <form action="add_brand.php" method="POST" enctype="multipart/form-data" class="block">
+            <h2>Add New Brand</h2>
             <div>
-                <label for="title">Title</label>
-                <input type="text" name="title" id="title" minlength="1" required>
+                <label for="brand_name">Name</label>
+                <input type="text" name="brand_name" id="brand_name" minlength="1" required>
             </div>
             <div>
-                <label for="content">Content</label>
-                <textarea name="content" id="content" cols="75" rows="12" minlength="1" required></textarea>
+                <label for="brand_description">Description</label>
+                <textarea name="brand_description" id="brand_description" cols="75" rows="12" minlength="1" required></textarea>
+            </div>
+            <div>
+                <label for="website">Website</label>
+                <input type="text" name="website" id="website"required>
             </div>
             <div>
                 <label for="image">Upload image</label>

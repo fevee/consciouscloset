@@ -2,7 +2,7 @@
 
 require('connect.php');
 
-$query = "SELECT * FROM brands ORDER BY name ASC";
+$query = "SELECT * FROM brands ORDER BY brand_name ASC";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -35,10 +35,21 @@ $statement->execute();
         <?php exit; endif; ?>
 
         <?php while($row = $statement->fetch()): ?>
-            <div class="block">
-                <h3><?= $row['name'] ?></h3>
-                <p><?= $row['description'] ?></p>
-                <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+            <div class="brand">
+                <?php if (!empty($row['image_path'])) : ?>
+                    <?php
+                    // Get the image name
+                    $image_name = basename($row['image_path']);
+                    ?>
+                    <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="brand-image">
+                <?php endif; ?>
+                <div class="brand-info">
+                    <h3><?= $row['brand_name'] ?></h3>
+                    <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . '...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Show</a>
+</p>
+                    <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+                    <p><a href="edit_brand.php?id=<?= $row['id'] ?>">Edit</a></p>
+                </div>
             </div>
         <?php endwhile; ?>
     </main>
