@@ -34,11 +34,14 @@ else {
         <div class="block">
             <?php if($id): ?>
                 <h1><?=$certifications['name']?></h1>
-                <small><a href="edit_cert.php?id=<?=$certifications['id']?>">Edit</a></small>
+                <small><a href="edit_cert.php?id=<?=$certifications['id']?>">Edit</a></small><br>
+                <div class="image-block">
                 <?php if(!empty($certifications['image_path'])): ?>
-                    <img src="<?=$certifications['image_path']?>" alt="<?=$certifications['name']?> logo" style="max-width: 100%; height: auto;">
+                    <img src="<?=$certifications['image_path']?>" alt="<?=$certifications['name']?> logo" class="lrg-cert-image">
                 <?php endif; ?>
+                </div>
                 <p><?=$certifications['description']?></p>
+                <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
             <?php else: ?>
                 <p>No certification selected <a href="?id=1">Try this link</a></p>
             <?php endif ?>

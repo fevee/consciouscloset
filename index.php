@@ -37,7 +37,7 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
-        <h2>Browse Recent Posts</h2>
+        <h2>Browse Recent Blog Posts</h2>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No blog posts yet</p>

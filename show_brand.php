@@ -34,11 +34,14 @@ else {
         <div class="block">
             <?php if($id): ?>
                 <h1><?=$brands['brand_name']?></h1>
-                <a href="edit_brand.php?id=<?=$brands['id']?>">Edit</a>
-                <?php if(!empty($brands['image_path'])): ?>
-                    <img src="<?=$brands['image_path']?>" alt="<?=$brands['brand_name']?> clothing" style="max-width: 100%; height: auto;">
-                <?php endif; ?>
+                <small><a href="edit_brand.php?id=<?=$brands['id']?>">Edit</a></small><br>
+                <div class="image-block">
+                    <?php if(!empty($brands['image_path'])): ?>
+                        <img src="<?=$brands['image_path']?>" alt="<?=$brands['brand_name']?> clothing" class="lrg-brand-image">
+                    <?php endif; ?>
+                </div>
                 <p><?=$brands['brand_description']?></p>
+                <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
             <?php else: ?>
                 <p>No brand selected <a href="?id=1">Try this link</a></p>
             <?php endif ?>

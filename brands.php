@@ -22,8 +22,8 @@ $statement->execute();
     <?php include('nav.php') ?>
 
     <div class="hero-content">
-        <h1>Discover Sustainable Brands</h1>
-        <p>Explore a curated selection of eco-friendly and ethically conscious fashion brands that align with your values.</p>
+        <h1>Explore Sustainable Brands</h1>
+        <p>Discover a curated selection of eco-friendly and ethically conscious fashion brands that align with your values.</p>
     </div>
 
     <main class="indexmain">
