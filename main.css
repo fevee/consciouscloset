@@ -115,19 +115,31 @@ body,html{
     box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
 }
 
-.brand, .cert {
+.brand, .cert, .item {
     border: thick double #ffffff28;
     max-width: 450px;
     border-radius: 10px;
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: center; /* Center the content vertically */
     margin-bottom: 20px;
+    display: flex; /* Make it a flex container */
+    flex-direction: column; /* Align items vertically */
     box-shadow: 0 26px 58px 0 rgba(0, 0, 0, .22), 0 5px 14px 0 rgba(0, 0, 0, .18);
 }
 
-.brand-image, .cert-image {
+.item-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+}
+
+.item {
+    width: calc(33% - 30px); /* Set the width of each item (50% - gap) */
+    margin-bottom: 10px; /* Add margin between items */
+}
+
+
+.brand-image, .cert-image, .item-image {
     width: 175px; /* Adjust the size of the brand image square */
     height: 175px; /* Adjust the size of the brand image square */
     object-fit: cover;
@@ -146,7 +158,15 @@ body,html{
 
 }
 
-.brand-info, .cert-info {
+@media screen and (max-width: 1050px) {
+    .brand-image, .cert-image, .item-image {
+        width: 100%; /* Adjust width for smaller screens */
+        height: auto; /* Maintain aspect ratio */
+        max-width: 175px; /* Limit width to 175px */
+    }
+}
+
+.brand-info, .cert-info, .item-info {
     max-width: 400px;
     
 }
