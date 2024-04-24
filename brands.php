@@ -47,31 +47,32 @@ $statement->execute($queryParams);
             <input type="text" name="searchBrand" id="searchBrand" placeholder="Search brand name" style="width: 150px;">
             <button type="submit">Search</button>
         </form>
-        <h2>Featured Brands</h2>
+        <a href="brands.php" class="title-link"><h2>Browse All Brands</h2></a>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No sustainable brands listed</p>
             </div>
         <?php exit; endif; ?>
-
-        <?php while($row = $statement->fetch()): ?>
-            <div class="brand">
-                <?php if (!empty($row['image_path'])) : ?>
-                    <?php
-                    // Get the image name
-                    $image_name = basename($row['image_path']);
-                    ?>
-                    <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="brand-image">
-                <?php endif; ?>
-                <div class="brand-info">
-                    <h3><?= $row['brand_name'] ?></h3>
-                    <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . '...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Show</a>
-</p>
-                    <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
-                    <p><a href="edit_brand.php?id=<?= $row['id'] ?>">Edit</a></p>
+        <div class="brands-container">
+            <?php while($row = $statement->fetch()): ?>
+                <div class="brand">
+                    <?php if (!empty($row['image_path'])) : ?>
+                        <?php
+                        // Get the image name
+                        $image_name = basename($row['image_path']);
+                        ?>
+                        <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="brand-image">
+                    <?php endif; ?>
+                    <div class="brand-info">
+                        <h3><?= $row['brand_name'] ?></h3>
+                        <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . '...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Show</a>
+    </p>
+                        <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+                        <p><a href="edit_brand.php?id=<?= $row['id'] ?>">Edit</a></p>
+                    </div>
                 </div>
-            </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+        </div>
     </main>
 
     <?php include('footer.php')?>
