@@ -293,7 +293,7 @@ body a:not(button):not(.navbar a):hover {
     margin-right: 30px;
 }
 
-#sortByForm {
+#sortByForm, #searchForm {
     display: flex;
     align-items: center; 
     justify-content: flex-end; 
@@ -306,6 +306,7 @@ body a:not(button):not(.navbar a):hover {
     margin-right: 10px;
 }
 
+#sortByForm button,
 #sortByForm button {
     margin-left: 10px;
 }

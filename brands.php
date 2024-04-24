@@ -1,11 +1,27 @@
 <?php
-
 require('connect.php');
 
-$query = "SELECT * FROM brands ORDER BY brand_name ASC";
-$statement = $db->prepare($query);
-$statement->execute();
+// Initial query to select all brands
+$query = "SELECT * FROM brands";
 
+// Check if a search query is provided
+if(isset($_GET['searchBrand'])) {
+    // Retrieve the search query from the URL
+    $searchBrand = $_GET['searchBrand'];
+    // Add WHERE clause to filter brands by name
+    $query .= " WHERE brand_name LIKE :searchBrand";
+    $queryParams = [':searchBrand' => '%' . $searchBrand . '%'];
+} else {
+    // Default query to select all brands if no search query is provided
+    $queryParams = [];
+}
+
+// Add ORDER BY clause to sort brands by name
+$query .= " ORDER BY brand_name ASC";
+
+// Prepare and execute the statement
+$statement = $db->prepare($query);
+$statement->execute($queryParams);
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +43,14 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
+        <form action="brands.php" method="GET" id="searchForm">
+            <input type="text" name="searchBrand" id="searchBrand" placeholder="Search brand name" style="width: 150px;">
+            <button type="submit">Search</button>
+        </form>
         <h2>Featured Brands</h2>
         <?php if($statement->rowCount() == 0):?>
             <div>
-                <p>No sustainable brands listed yet</p>
+                <p>No sustainable brands listed</p>
             </div>
         <?php exit; endif; ?>
 
