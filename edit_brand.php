@@ -95,7 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php include('nav.php') ?>
     <main>
         <form action="" method="POST" enctype="multipart/form-data" class="block"> <!-- Added enctype="multipart/form-data" -->
-            <h2>Edit Post</h2>
+            <h2>Edit Brand</h2>
             <div>
                 <label for="brand_name">Name</label>
                 <input type="text" name="brand_name" id="brand_name"

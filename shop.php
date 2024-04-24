@@ -2,8 +2,20 @@
 
 require('connect.php');
 
-$query = "SELECT * FROM items WHERE isSold = 0 ORDER BY date_posted DESC";
-$statement = $db->prepare($query);
+// Check if a category filter is specified in the URL
+if(isset($_GET['category'])) {
+    // Retrieve the category value from the URL
+    $category = $_GET['category'];
+
+    // Prepare SQL query to select items based on the specified category
+    $query = "SELECT * FROM items WHERE category = :category AND isSold = 0 ORDER BY date_posted DESC";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':category', $category, PDO::PARAM_STR);
+} else {
+    // Default SQL query to select all items if no category filter is specified
+    $query = "SELECT * FROM items WHERE isSold = 0 ORDER BY date_posted DESC";
+    $statement = $db->prepare($query);
+}
 $statement->execute();
 
 ?>
@@ -28,7 +40,13 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
-        <h2>Featured Items</h2>
+    <div class="category-links">
+        <h3>Shop Categories</h3>
+        <a href="shop.php?category=Women">Women's</a>
+        <a href="shop.php?category=Men">Men's</a>
+        <a href="shop.php?">View All</a>
+    </div>
+        <h2>Browse All Items</h2>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No items listed yet</p>
@@ -42,7 +60,7 @@ $statement->execute();
                     // Get the image name
                     $image_name = basename($row['image_path']);
                     ?>
-                    <a href="<?= $row['image_path'] ?>" data-luminous="gallery">
+                    <a href="<?= $row['image_path'] ?>" data-luminous="gallery" class="img-link">
                         <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="item-image">
                     </a>
                 <?php endif; ?>
@@ -52,6 +70,7 @@ $statement->execute();
                     <p>Size: <?= $row['size'] ?></p>
                     <p><?= $row['description'] ?></p>
                     <p>Price: $<?=$row['price']?> CAD</p>
+                    <p><a href="edit_item.php?id=<?= $row['id'] ?>">Edit</a></p>
                 </div>
             </div>
         <?php endwhile; ?>
@@ -61,7 +80,7 @@ $statement->execute();
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.0.1/Luminous.min.js"></script>
     <script>
-        new LuminousGallery(document.querySelectorAll(".item a"));
+        new LuminousGallery(document.querySelectorAll(".item a .img-link"));
     </script>
 </body>
 </html>

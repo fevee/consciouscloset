@@ -112,8 +112,8 @@ if($_POST && !empty($_POST['name']) && !empty($_POST['description']) && !empty($
                 <label for="category">Category</label>
                 <select name="category" id="category">
                     <option value="">Select category</option>
-                    <option value="Women's">Women's</option>
-                    <option value="Men's">Men's</option>
+                    <option value="Women">Women's</option>
+                    <option value="Men">Men's</option>
                 </select>
             </div>
             <div>
@@ -144,11 +144,11 @@ if($_POST && !empty($_POST['name']) && !empty($_POST['description']) && !empty($
             // Find the index after which the "<optgroup>" for shoes should be inserted
             var shoeIndex;
 
-            if (category === 'Women\'s') {
+            if (category === 'Women') {
                 sizeOptions = ["One Size", "XS", "S", "M", "L", "XL", "0", "2", "4", "6", "8", "10", "12", "14", "16", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "36", "5", "6", "7", "8", "9", "10"];
                 shoeIndex = sizeOptions.indexOf("36") + 1;
-            } else if (category === 'Men\'s') {
-                sizeOptions = ["One Size", "XS", "S", "M", "Large", "XL", "26", "28", "30", "31", "32", "33", "34", "36", "38", "40", "42", "6", "7", "8", "9", "10", "11", "12", "13"];
+            } else if (category === 'Men') {
+                sizeOptions = ["One Size", "XS", "S", "M", "L", "XL", "26", "28", "30", "31", "32", "33", "34", "36", "38", "40", "42", "6", "7", "8", "9", "10", "11", "12", "13"];
                 shoeIndex = sizeOptions.indexOf("42") + 1;
             }
 
