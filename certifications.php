@@ -1,11 +1,26 @@
 <?php
-
 require('connect.php');
 
-$query = "SELECT * FROM certifications ORDER BY name ASC";
-$statement = $db->prepare($query);
-$statement->execute();
+$query = "SELECT * FROM certifications";
 
+// Check if a search query is provided
+if(isset($_GET['searchCertification'])) {
+    // Retrieve the search query from the URL
+    $searchCertification = $_GET['searchCertification'];
+    // Add WHERE clause to filter by name
+    $query .= " WHERE name LIKE :searchCertification";
+    $queryParams = [':searchCertification' => '%' . $searchCertification . '%'];
+} else {
+    // Default query to select all if no search query is provided
+    $queryParams = [];
+}
+
+// Add ORDER BY clause to sort by name
+$query .= " ORDER BY name ASC";
+
+// Prepare and execute the statement
+$statement = $db->prepare($query);
+$statement->execute($queryParams);
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +42,11 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
-        <h2>Featured Certifications</h2>
+        <form action="certifications.php" method="GET" id="searchForm">
+            <input type="text" name="searchCertification" id="searchCertification" placeholder="Search certification name" style="width: 200px;">
+            <button type="submit">Search</button>
+        </form>
+        <a href="certifications.php" class="title-link"><h2>Browse All Certifications</h2></a>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No certifications listed yet</p>
