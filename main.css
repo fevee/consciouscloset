@@ -275,14 +275,39 @@ body a:not(button):not(.navbar a):hover {
     color: #FFF;
   }
 
-  .category-links {
-    margin-bottom: 20px; /* Adjust the margin as needed */
+  .shop-header {
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    align-items: center; /* Center items vertically */
+    max-width: 1200px; /* Adjust max width as needed */
+    margin: 0 auto; /* Center horizontally */
+}
+
+.category-links {
+    margin-bottom: 20px;
 }
 
 .category-links a {
     display: inline-block;
-    color: #333; /* Adjust link color as needed */
+    color: #333;
     margin-right: 30px;
+}
+
+#sortByForm {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-end; 
+    margin-right: 0px;
+
+}
+
+#sortByForm label,
+#sortByForm select {
+    margin-right: 10px;
+}
+
+#sortByForm button {
+    margin-left: 10px;
 }
 
 

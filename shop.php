@@ -1,6 +1,8 @@
 <?php
-
 require('connect.php');
+
+// Set default sorting criteria
+$defaultSort = "date_posted DESC";
 
 // Check if a category filter is specified in the URL
 if(isset($_GET['category'])) {
@@ -8,15 +10,38 @@ if(isset($_GET['category'])) {
     $category = $_GET['category'];
 
     // Prepare SQL query to select items based on the specified category
-    $query = "SELECT * FROM items WHERE category = :category AND isSold = 0 ORDER BY date_posted DESC";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':category', $category, PDO::PARAM_STR);
+    $query = "SELECT * FROM items WHERE category = :category AND isSold = 0";
+    $queryParams = [':category' => $category];
 } else {
     // Default SQL query to select all items if no category filter is specified
-    $query = "SELECT * FROM items WHERE isSold = 0 ORDER BY date_posted DESC";
-    $statement = $db->prepare($query);
+    $query = "SELECT * FROM items WHERE isSold = 0";
+    $queryParams = [];
 }
-$statement->execute();
+
+// Check if sorting criteria is provided
+if(isset($_GET['sortBy'])) {
+    $sortBy = $_GET['sortBy'];
+    switch($sortBy) {
+        case 'price_low':
+            $sort = "price ASC";
+            break;
+        case 'price_high':
+            $sort = "price DESC";
+            break;
+        default:
+            $sort = $defaultSort;
+            break;
+    }
+} else {
+    $sort = $defaultSort;
+}
+
+// Append sorting criteria to the query
+$query .= " ORDER BY $sort";
+
+// Prepare and execute the statement
+$statement = $db->prepare($query);
+$statement->execute($queryParams);
 
 ?>
 
@@ -40,12 +65,26 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
-    <div class="category-links">
-        <h3>Shop Categories</h3>
-        <a href="shop.php?category=Women">Women's</a>
-        <a href="shop.php?category=Men">Men's</a>
-        <a href="shop.php?">View All</a>
+
+    <div class="shop-header">
+        <div class="category-links">
+            <h3>Shop Categories</h3>
+            <a href="shop.php?category=Women">Women's</a>
+            <a href="shop.php?category=Men">Men's</a>
+            <a href="shop.php?">View All</a>
+        </div>
+        <form action="shop.php<?= isset($_GET['category']) ? '?category=' . $_GET['category'] : '' ?>" method="GET" id="sortByForm">
+        <!-- Hidden input field to include the category parameter -->
+        <input type="hidden" name="category" value="<?= isset($_GET['category']) ? $_GET['category'] : '' ?>">
+            <label for="sortBy">Sort By:</label>
+            <select name="sortBy" id="sortBy">
+                <option value="">Select criteria</option>
+                <option value="price_low">Price Low to High</option>
+                <option value="price_high">Price High to Low</option>
+            </select>
+        </form>
     </div>
+
         <h2>Browse All Items</h2>
         <?php if($statement->rowCount() == 0):?>
             <div>
@@ -80,7 +119,11 @@ $statement->execute();
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luminous-lightbox/2.0.1/Luminous.min.js"></script>
     <script>
-        new LuminousGallery(document.querySelectorAll(".item a .img-link"));
+        // JavaScript to submit the form when the sorting criteria changes
+        document.getElementById('sortBy').addEventListener('change', function() {
+            document.getElementById('sortByForm').submit();
+        });
+        new LuminousGallery(document.querySelectorAll(".item .img-link"));
     </script>
 </body>
 </html>
