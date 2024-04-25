@@ -8,6 +8,11 @@
 ****************/
 require('connect.php');
 
+// Pagination variables
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$brandsPerPage = 6;
+$offset = ($page - 1) * $brandsPerPage;
+
 // Initial query to select all brands
 $query = "SELECT * FROM brands";
 
@@ -23,12 +28,26 @@ if(isset($_GET['searchBrand'])) {
     $queryParams = [];
 }
 
-// Add ORDER BY clause to sort brands by name
-$query .= " ORDER BY brand_name ASC";
+// Add LIMIT and OFFSET for pagination
+$query .= " ORDER BY brand_name ASC LIMIT :limit OFFSET :offset";
 
-// Prepare and execute the statement
+// Prepare the statement
 $statement = $db->prepare($query);
-$statement->execute($queryParams);
+
+// Bind parameters separately
+$statement->bindParam(':limit', $brandsPerPage, PDO::PARAM_INT);
+$statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+// Merge query parameters if search query is provided
+if(isset($queryParams)) {
+    foreach ($queryParams as $param => $value) {
+        $statement->bindParam($param, $value);
+    }
+}
+
+// Execute the statement
+$statement->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -43,12 +62,13 @@ $statement->execute($queryParams);
 <body>
     <?php include('header.php') ?> 
     <?php include('nav.php') ?>
-
-    <div class="hero-content">
-        <h1>Explore Sustainable Brands</h1>
-        <p>Discover a curated selection of eco-friendly and ethically conscious fashion brands that align with your values.</p>
+    <div class="hero-image">
+        <img src="uploads/clothing store window rack.jpg" alt="clothing store window rack">
+        <div class="overlay-text hero-content">
+            <h1>Explore Sustainable Brands</h1>
+            <p>Discover a curated selection of eco-friendly and ethically conscious fashion brands that align with your values</p>
+        </div>
     </div>
-
     <main class="indexmain">
         <form action="brands.php" method="GET" id="searchForm">
             <input type="text" name="searchBrand" id="searchBrand" placeholder="Search brand name" style="width: 150px;">
@@ -79,6 +99,16 @@ $statement->execute($queryParams);
                     </div>
                 </div>
             <?php endwhile; ?>
+            </div>
+        </div>
+        <!-- Pagination buttons -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+            <button> <a href="?page=<?= $page - 1 ?>" class="pagination-button">Prev</a></button>
+            <?php endif; ?>
+            <?php if ($statement->rowCount() == $brandsPerPage): ?>
+                <button><a href="?page=<?= $page + 1 ?>" class="pagination-button">Next</a></button>
+            <?php endif; ?>
         </div>
     </main>
 

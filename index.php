@@ -8,26 +8,45 @@
 ****************/
 require('connect.php');
 
-// Initial query to select all brands
+// Pagination variables
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$postsPerPage = 3;
+$offset = ($page - 1) * $postsPerPage;
+
+
+// Initial query to select all 
 $query = "SELECT * FROM blog";
 
 // Check if a search query is provided
 if(isset($_GET['searchBlog'])) {
     // Retrieve the search query from the URL
     $searchBlog = $_GET['searchBlog'];
-    // Add WHERE clause to filter brands by name
+    // Add WHERE clause to filter by date
     $query .= " WHERE title LIKE :searchBlog";
     $queryParams = [':searchBlog' => '%' . $searchBlog . '%'];
 } else {
     $queryParams = [];
 }
 
-// Add ORDER BY clause to sort brands by name
-$query .= " ORDER BY date_posted DESC";
+// Add ORDER BY clause to sort by date
+$query .= " ORDER BY date_posted DESC LIMIT :limit OFFSET :offset";
 
-// Prepare and execute the statement
+// Prepare the statement
 $statement = $db->prepare($query);
-$statement->execute($queryParams);
+
+// Bind parameters separately
+$statement->bindParam(':limit', $postsPerPage, PDO::PARAM_INT);
+$statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+// Merge query parameters if search query is provided
+if(isset($queryParams)) {
+    foreach ($queryParams as $param => $value) {
+        $statement->bindParam($param, $value);
+    }
+}
+
+// Execute the statement
+$statement->execute();
 ?>
 
 <!DOCTYPE html>
@@ -44,10 +63,13 @@ $statement->execute($queryParams);
     <?php include('header.php') ?>
     <?php include('nav.php') ?>
 
-    <div class="hero-content">
-        <h1>Welcome</h1>
-        <p>Indulge in the vibrant world of fashion guilt-free! Our platform caters to fashion enthusiasts who seek to explore their style with their joy and conscience intact. 
+    <div class="hero-image">
+        <img src="uploads/welcome header image.jpg" alt="earth tone thread spools">
+        <div class="overlay-text hero-content">
+            <h1>Welcome</h1>
+            <p>Indulge in the vibrant world of fashion guilt-free! Our platform caters to fashion enthusiasts who seek to explore their style with their joy and conscience intact. 
             Explore style sustainably with our curated brand selection or shop our curated selection of secondhand pieces. Learn more about certifications or from our insightful blog.</p>
+        </div>
     </div>
 
     <main class="indexmain">
@@ -87,6 +109,15 @@ $statement->execute($queryParams);
             </p>
             </div>
         <?php endwhile; ?>
+        <!-- Pagination buttons -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+            <button> <a href="?page=<?= $page - 1 ?>" class="pagination-button">Prev</a></button>
+            <?php endif; ?>
+            <?php if ($statement->rowCount() == $postsPerPage): ?>
+                <button><a href="?page=<?= $page + 1 ?>" class="pagination-button">Next</a></button>
+            <?php endif; ?>
+        </div>
     </main>
 
     <?php include('footer.php')?>

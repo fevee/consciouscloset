@@ -8,6 +8,11 @@
 ****************/
 require('connect.php');
 
+// Pagination variables
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$certsPerPage = 6;
+$offset = ($page - 1) * $certsPerPage;
+
 $query = "SELECT * FROM certifications";
 
 // Check if a search query is provided
@@ -23,11 +28,24 @@ if(isset($_GET['searchCertification'])) {
 }
 
 // Add ORDER BY clause to sort by name
-$query .= " ORDER BY name ASC";
+$query .= " ORDER BY name ASC LIMIT :limit OFFSET :offset";
 
-// Prepare and execute the statement
+// Prepare the statement
 $statement = $db->prepare($query);
-$statement->execute($queryParams);
+
+// Bind parameters separately
+$statement->bindParam(':limit', $certsPerPage, PDO::PARAM_INT);
+$statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+// Merge query parameters if search query is provided
+if(isset($queryParams)) {
+    foreach ($queryParams as $param => $value) {
+        $statement->bindParam($param, $value);
+    }
+}
+
+// Execute the statement
+$statement->execute();
 ?>
 
 <!DOCTYPE html>
@@ -43,9 +61,12 @@ $statement->execute($queryParams);
     <?php include('header.php') ?>
     <?php include('nav.php') ?>
 
-    <div class="hero-content">
-        <h1>Explore Ethical Certifications</h1>
-        <p>Discover various ethical certifications that validate a brand's commitment to sustainability and ethical practices.</p>
+    <div class="hero-image">
+        <img src="uploads/clothing factory.jpg" alt="clothing factory">
+        <div class="overlay-text hero-content">
+            <h1>Explore Ethical Certifications</h1>
+            <p>Discover various ethical certifications that validate a brand's commitment to sustainability and ethical practices.</p>
+        </div>
     </div>
 
     <main class="indexmain">
@@ -80,7 +101,15 @@ $statement->execute($queryParams);
                 </div>
             <?php endwhile; ?>
         </div>
-
+        <!-- Pagination buttons -->
+        <div class="pagination">
+            <?php if ($page > 1): ?>
+                <button> <a href="?page=<?= $page - 1 ?>" class="pagination-button">Prev</a></button>
+            <?php endif; ?>
+            <?php if ($statement->rowCount() == $certsPerPage): ?>
+                <button><a href="?page=<?= $page + 1 ?>" class="pagination-button">Next</a></button>
+            <?php endif; ?>
+        </div>
     </main>
 
     <?php include('footer.php')?>

@@ -8,6 +8,11 @@
 ****************/
 require('connect.php');
 
+// Pagination variables
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$itemsPerPage = 6; // Adjust the number of items per page as needed
+$offset = ($page - 1) * $itemsPerPage;
+
 // Set default sorting criteria
 $defaultSort = "date_posted DESC";
 
@@ -46,9 +51,25 @@ if(isset($_GET['sortBy'])) {
 // Append sorting criteria to the query
 $query .= " ORDER BY $sort";
 
-// Prepare and execute the statement
+// Add LIMIT and OFFSET for pagination
+$query .= " LIMIT :limit OFFSET :offset";
+
+// Prepare the statement
 $statement = $db->prepare($query);
-$statement->execute($queryParams);
+
+// Bind parameters separately
+$statement->bindParam(':limit', $itemsPerPage, PDO::PARAM_INT);
+$statement->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+// Merge query parameters if search query is provided
+if(isset($queryParams)) {
+    foreach ($queryParams as $param => $value) {
+        $statement->bindParam($param, $value);
+    }
+}
+
+// Execute the statement
+$statement->execute();
 
 ?>
 
@@ -65,10 +86,12 @@ $statement->execute($queryParams);
 <body>
     <?php include('header.php') ?>
     <?php include('nav.php') ?>
-
-    <div class="hero-content">
-        <h1>Explore Curated Secondhand Items</h1>
-        <p>From vintage classics to modern staples, our curated selection of secondhand items offers sustainable style for every taste. Look good and feel great by giving pre-loved items a new life.</p>
+    <div class="hero-image">
+        <img src="uploads/woman shopping clothing rack.jpg" alt="woman shopping through clothing rack">
+        <div class="overlay-text hero-content">
+            <h1>Explore Curated Secondhand Items</h1>
+            <p>From vintage classics to modern staples, our curated selection of secondhand items offers sustainable style for every taste. Look good and feel great by giving pre-loved items a new life.</p>
+        </div>
     </div>
 
     <main class="indexmain">
@@ -101,27 +124,36 @@ $statement->execute($queryParams);
             </div>
         <?php exit; endif; ?>
         <div class=" item-container">
-        <?php while($row = $statement->fetch()): ?>
-            <div class="item">
-                <?php if (!empty($row['image_path'])) : ?>
-                    <?php
-                    // Get the image name
-                    $image_name = basename($row['image_path']);
-                    ?>
-                    <a href="<?= $row['image_path'] ?>" data-luminous="gallery" class="img-link">
-                        <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="item-image">
-                    </a>
-                <?php endif; ?>
-                <div class="item-info">
-                    <h3><?= $row['name'] ?></h3>
-                    <p>Category: <?= $row['category'] ?></p>
-                    <p>Size: <?= $row['size'] ?></p>
-                    <p><?= $row['description'] ?></p>
-                    <p>Price: $<?=$row['price']?> CAD</p>
-                    <p><a href="edit_item.php?id=<?= $row['id'] ?>">Edit</a></p>
+            <?php while($row = $statement->fetch()): ?>
+                <div class="item">
+                    <?php if (!empty($row['image_path'])) : ?>
+                        <?php
+                        // Get the image name
+                        $image_name = basename($row['image_path']);
+                        ?>
+                        <a href="<?= $row['image_path'] ?>" data-luminous="gallery" class="img-link">
+                            <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="item-image">
+                        </a>
+                    <?php endif; ?>
+                    <div class="item-info">
+                        <h3><?= $row['name'] ?></h3>
+                        <p>Category: <?= $row['category'] ?></p>
+                        <p>Size: <?= $row['size'] ?></p>
+                        <p><?= $row['description'] ?></p>
+                        <p>Price: $<?=$row['price']?> CAD</p>
+                        <p><a href="edit_item.php?id=<?= $row['id'] ?>">Edit</a></p>
+                    </div>
                 </div>
-            </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+        </div>
+         <!-- Pagination buttons -->
+         <div class="pagination">
+                <?php if ($page > 1): ?>
+                <button> <a href="?page=<?= $page - 1 ?>" class="pagination-button">Prev</a></button>
+                <?php endif; ?>
+                <?php if ($statement->rowCount() == $itemsPerPage): ?>
+                    <button><a href="?page=<?= $page + 1 ?>" class="pagination-button">Next</a></button>
+                <?php endif; ?>
         </div>
     </main>
     <?php include('footer.php')?>

@@ -51,6 +51,7 @@ else {
                 <p>No blog selected <a href="?id=1">Try this link</a></p>
             <?php endif ?>
         </div>
+        <p><a href="index.php">Return</a></p>
     </main>
     <?php include('footer.php') ?>
 </body>
