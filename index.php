@@ -33,7 +33,8 @@ $statement->execute();
 
     <div class="hero-content">
         <h1>Welcome</h1>
-        <p>Indulge in the vibrant world of fashion guilt-free! Our platform caters to fashion enthusiasts who seek to explore their style with joy and conscience intact.</p>
+        <p>Indulge in the vibrant world of fashion guilt-free! Our platform caters to fashion enthusiasts who seek to explore their style with their joy and conscience intact. 
+            Explore style sustainably with our curated brand selection or shop our curated selection of secondhand pieces. Learn more about certifications or from our insightful blog.</p>
     </div>
 
     <main class="indexmain">
