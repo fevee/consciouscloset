@@ -8,7 +8,7 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
-            <a href="post.php">+Post</a>
+            <a href="post.php">+Blog</a>
             <a href="add_brand.php">+Brand</a>
             <a href="add_cert.php">+Certification</a>
             <a href="add_item.php">+Shop Item</a>
