@@ -73,9 +73,11 @@ $statement->execute($queryParams);
             <a href="shop.php?category=Men">Men's</a>
             <a href="shop.php?">View All</a>
         </div>
-        <form action="shop.php<?= isset($_GET['category']) ? '?category=' . $_GET['category'] : '' ?>" method="GET" id="sortByForm">
+        <form action="shop.php<?= isset($_GET['category']) ? '?category=' . $_GET['category'] : ''; ?><?php echo isset($_GET['sortBy']) ? (isset($_GET['category']) ? '&' : '?') . 'sortBy=' . $_GET['sortBy'] : ''; ?>" method="GET" id="sortByForm">
         <!-- Hidden input field to include the category parameter -->
-        <input type="hidden" name="category" value="<?= isset($_GET['category']) ? $_GET['category'] : '' ?>">
+            <?php if(isset($_GET['category'])): ?>
+                <input type="hidden" name="category" value="<?= $_GET['category'] ?>">
+            <?php endif; ?>
             <label for="sortBy">Sort By:</label>
             <select name="sortBy" id="sortBy">
                 <option value="">Select criteria</option>
