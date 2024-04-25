@@ -1,20 +1,26 @@
 <?php
-
-/*******w******** 
-    
-    Name: Faye Vaquilar
-    Date: Feb 20, 2024
-    Description: Web Dev 2 Assignment 3 Blog
-
-****************/
-
 require('connect.php');
 
-$query = "SELECT * FROM blog ORDER BY date_posted DESC LIMIT 5";
+// Initial query to select all brands
+$query = "SELECT * FROM blog";
+
+// Check if a search query is provided
+if(isset($_GET['searchBlog'])) {
+    // Retrieve the search query from the URL
+    $searchBlog = $_GET['searchBlog'];
+    // Add WHERE clause to filter brands by name
+    $query .= " WHERE title LIKE :searchBlog";
+    $queryParams = [':searchBlog' => '%' . $searchBlog . '%'];
+} else {
+    $queryParams = [];
+}
+
+// Add ORDER BY clause to sort brands by name
+$query .= " ORDER BY date_posted DESC";
+
+// Prepare and execute the statement
 $statement = $db->prepare($query);
-$statement->execute();
-
-
+$statement->execute($queryParams);
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +44,11 @@ $statement->execute();
     </div>
 
     <main class="indexmain">
-        <h2>Browse Recent Blog Posts</h2>
+        <form action="index.php" method="GET" id="searchForm">
+            <input type="text" name="searchBlog" id="searchBlog" placeholder="Search Blog" style="width: 150px;">
+            <button type="submit">Search</button>
+        </form>
+        <a href="index.php" class="title-link"><h2>Browse Blog Posts</h2></a>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No blog posts yet</p>
