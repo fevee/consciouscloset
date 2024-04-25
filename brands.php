@@ -1,4 +1,11 @@
 <?php
+/*************** 
+    
+    Name: Faye Vaquilar
+    Date: April 24, 2024
+    Description: Web Dev 2 Final Assignment - Conscious Closet
+
+****************/
 require('connect.php');
 
 // Initial query to select all brands

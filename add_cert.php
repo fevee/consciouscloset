@@ -1,9 +1,9 @@
 <?php
-/*******w******** 
+/**************** 
     
     Name: Faye Vaquilar
-    Date: Feb 20, 2024
-    Description: Web Dev 2 Assignment 3 Blog
+    Date: April 24, 2024
+    Description: Web Dev 2 Final Assignment - Conscious Closet
 
 ****************/
 require('authenticate.php');

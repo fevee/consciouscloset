@@ -1,4 +1,11 @@
  <?php
+ /*************** 
+    
+    Name: Faye Vaquilar
+    Date: April 24, 2024
+    Description: Web Dev 2 Final Assignment - Conscious Closet
+
+****************/
      define('DB_DSN','mysql:host=localhost;dbname=consciouscloset;charset=utf8');
      define('DB_USER','server_user');
      define('DB_PASS','gorgonzola7!');     

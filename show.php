@@ -1,4 +1,11 @@
 <?php
+/*************** 
+    
+    Name: Faye Vaquilar
+    Date: April 24, 2024
+    Description: Web Dev 2 Final Assignment - Conscious Closet (show full blog post)
+
+****************/
 
 require('connect.php');
 
