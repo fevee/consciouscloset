@@ -42,6 +42,7 @@ else {
                 </div>
                 <p><?=$certifications['description']?></p>
                 <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+                <p><a href="certifications.php">Return</a></p>
             <?php else: ?>
                 <p>No certification selected <a href="?id=1">Try this link</a></p>
             <?php endif ?>

@@ -64,8 +64,8 @@ $statement->execute($queryParams);
                     <?php endif; ?>
                     <div class="cert-info">
                         <h3><?= $row['name'] ?></h3>
-                        <p class="description"><?= strlen($row['description']) > 140 ? substr($row['description'], 0, 140) . '...' :
-                            $row['description'] ?><a href="show_cert.php?id=<?=$row['id']?>">Show</a>
+                        <p class="description"><?= strlen($row['description']) > 140 ? substr($row['description'], 0, 140) . ' ...' :
+                            $row['description'] ?><a href="show_cert.php?id=<?=$row['id']?>">Read More</a>
                         </p>
                         <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
                         <p><a href="edit_cert.php?id=<?= $row['id'] ?>">Edit</a></p>

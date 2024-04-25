@@ -65,7 +65,7 @@ $statement->execute($queryParams);
                     <?php endif; ?>
                     <div class="brand-info">
                         <h3><?= $row['brand_name'] ?></h3>
-                        <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . '...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Show</a>
+                        <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . ' ...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Read More</a>
     </p>
                         <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
                         <p><a href="edit_brand.php?id=<?= $row['id'] ?>">Edit</a></p>

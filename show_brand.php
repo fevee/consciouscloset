@@ -42,6 +42,7 @@ else {
                 </div>
                 <p><?=$brands['brand_description']?></p>
                 <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>
+                <p><a href="brands.php">Return</a></p>
             <?php else: ?>
                 <p>No brand selected <a href="?id=1">Try this link</a></p>
             <?php endif ?>

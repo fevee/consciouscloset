@@ -16,8 +16,9 @@ body,html{
 }
 
 #header {
-    background: #442533;
-    background: radial-gradient(at center, #442533, #4E4983);
+    font-family: 'Montserrat', sans-serif;
+    background: #61764B;
+    background: radial-gradient(at center, #285430, #7D8F69);
     height: 365px;
     position: relative;
 }
@@ -35,8 +36,9 @@ body,html{
 }
 
 .navbar {
-    background-color: #2A2B2E;
+    background-color: #557153;
     overflow: hidden;
+    box-shadow: inset 0 0 15px 15px #4E6C50;
 }
 
 .navbar a {
@@ -67,14 +69,14 @@ body,html{
   }
   
 .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: #442533;
+    background-color: #61764B;
 }
 
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #ffffff28;
+    background-color: #9BA17B;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -90,7 +92,7 @@ body,html{
 }
 
 .dropdown-content a:hover {
-    background-color: #442533;
+    background-color: #7D8F69;
 }
 
 .dropdown:hover .dropdown-content {
@@ -108,7 +110,7 @@ body,html{
 }
 
 .block {
-    border: thick double #ffffff28;
+    border: thick double #8D7B68;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 30px;
@@ -116,7 +118,7 @@ body,html{
 }
 
 .brand, .cert, .item {
-    border: thick double #ffffff28;
+    border: thick double #8D7B68;
     max-width: 450px;
     border-radius: 10px;
     padding: 10px;
@@ -241,18 +243,18 @@ button {
 }
 
 button:hover {
-    background-color: #442533;
+    background-color: #61764B;
 }
 
 body a:not(button):not(.navbar a) {
     color: white;
-    box-shadow: inset 0 0 0 0 #4E4983;
+    box-shadow: inset 0 0 0 0 #61764B;
     color: #fff;
     transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
 
 body a:not(button):not(.navbar a):hover {
-    box-shadow: inset 1000px 0 0 0 #4E4983;
+    box-shadow: inset 1000px 0 0 0 #7D8F69;
     color: white;
 }
 
@@ -263,14 +265,16 @@ body a:not(button):not(.navbar a):hover {
 }
 
 .hero-content {
+    color: #ac957c;
     text-align: center;
     max-width: 50%;
     margin: 100px auto; /* Center horizontally and adjust vertical margin as needed */
   }
   
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
     margin-bottom: 20px;
+    letter-spacing: 0.25em;
   }
   
   .hero-content p {
