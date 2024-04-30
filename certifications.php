@@ -74,7 +74,7 @@ $statement->execute();
             <input type="text" name="searchCertification" id="searchCertification" placeholder="Search certification name" style="width: 200px;">
             <button type="submit">Search</button>
         </form>
-        <a href="certifications.php" class="title-link"><h2>Browse All Certifications</h2></a>
+        <a href="certifications.php" class="title-link">Browse All Certifications</a>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No certifications listed yet</p>

@@ -74,7 +74,7 @@ $statement->execute();
             <input type="text" name="searchBrand" id="searchBrand" placeholder="Search brand name" style="width: 150px;">
             <button type="submit">Search</button>
         </form>
-        <a href="brands.php" class="title-link"><h2>Browse All Brands</h2></a>
+        <a href="brands.php" class="title-link">Browse All Brands</a>
         <?php if($statement->rowCount() == 0):?>
             <div>
                 <p>No sustainable brands listed</p>
@@ -91,7 +91,7 @@ $statement->execute();
                         <img src="<?= $row['image_path'] ?>" alt="<?= $image_name ?>" class="brand-image">
                     <?php endif; ?>
                     <div class="brand-info">
-                        <h3><?= $row['brand_name'] ?></h3>
+                        <a href="show_brand.php?id=<?=$row['id']?>" class="namelink"><?= $row['brand_name'] ?></a>
                         <p class="brand-description"><?= strlen($row['brand_description']) > 140 ? substr($row['brand_description'], 0, 140) . ' ...' : $row['brand_description'] ?><a href="show_brand.php?id=<?=$row['id']?>">Read More</a>
     </p>
                         <p><a href="<?= $row['website'] ?>" target="_blank">Visit Website</a></p>

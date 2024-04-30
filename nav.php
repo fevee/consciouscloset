@@ -14,4 +14,7 @@
             <a href="add_item.php">+Shop Item</a>
         </div>
     </div>
+    <div style="float: right;">
+        <a href="view_cart.php">View Cart</a>
+    </div>
 </div>

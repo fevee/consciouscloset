@@ -141,6 +141,15 @@ $statement->execute();
                         <p>Size: <?= $row['size'] ?></p>
                         <p><?= $row['description'] ?></p>
                         <p>Price: $<?=$row['price']?> CAD</p>
+
+                        <form action="add_to_cart.php" method="POST">
+                            <input type="hidden" name="item_id" value="<?= $row['id'] ?>">
+                            <input type="hidden" name="name" value="<?= $row['name'] ?>">
+                            <input type="hidden" name="price" value="<?= $row['price'] ?>">
+                            <input type="hidden" name="image_path" value="<?= $row['image_path'] ?>">
+                            <button type="submit" name="add_to_cart">Add to Cart</button>
+                        </form>
+
                         <p><a href="edit_item.php?id=<?= $row['id'] ?>">Edit</a></p>
                     </div>
                 </div>
