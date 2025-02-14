@@ -4,7 +4,7 @@
 
 **Conscious Closet** is a platform dedicated to promoting sustainable fashion practices. It serves as a hub for individuals passionate about eco-friendly fashion choices, enabling the exploration of sustainable brands, buying and selling second-hand fashion items, and fostering a community that advocates for a circular fashion economy.
 
-The platform aims to address ethical and environmental concerns in the fashion industry by providing practical solutions and encouraging collective responsibility towards conscious consumerism—all while celebrating a love for fashion.
+The platform aims to address ethical and environmental concerns in the fashion industry by providing practical solutions and encouraging collective responsibility towards conscious consumerism all while celebrating a love for fashion.
 
 
 ## 🎯 Features
