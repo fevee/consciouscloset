@@ -17,7 +17,7 @@ The platform aims to address ethical and environmental concerns in the fashion i
   
 ## ⚙️ Tech Used
 
-### Fronend
+### Frontend
 - HTML5
 - CSS3
 - JavaScript
